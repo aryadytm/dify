@@ -177,7 +177,7 @@ services:
       - redis
     volumes:
       # Mount the storage directory to the container, for storing user files.
-      - /app/docker/volumes/app/storage:/app/api/storage
+      - /app/dify/volumes/app/storage:/app/api/storage
     # uncomment to expose dify-api port to host
     # ports:
     #   - "5001:5001"
@@ -336,7 +336,7 @@ services:
       # postgres data directory
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - /app/docker/volumes/db/data:/var/lib/postgresql/data
+      - /app/dify/volumes/db/data:/var/lib/postgresql/data
     # uncomment to expose db(postgresql) port to host
     # ports:
     #   - "5432:5432"
@@ -352,7 +352,7 @@ services:
     restart: always
     volumes:
       # Mount the redis data directory to the container.
-      - /app/docker/volumes/redis/data:/data
+      - /app/dify/volumes/redis/data:/data
     # Set the redis password when startup redis server.
     command: redis-server --requirepass difyai123456
     healthcheck:
@@ -367,7 +367,7 @@ services:
     restart: always
     volumes:
       # Mount the Weaviate data directory to the container.
-      - /app/docker/volumes/weaviate:/var/lib/weaviate
+      - /app/dify/volumes/weaviate:/var/lib/weaviate
     environment:
       # The Weaviate configurations
       # You can refer to the [Weaviate](https://weaviate.io/developers/weaviate/config-refs/env-vars) documentation for more information.
@@ -400,7 +400,7 @@ services:
       HTTP_PROXY: 'http://ssrf_proxy:3128'
       HTTPS_PROXY: 'http://ssrf_proxy:3128'
     volumes:
-      - /app/docker/volumes/sandbox/dependencies:/dependencies
+      - /app/dify/volumes/sandbox/dependencies:/dependencies
     networks:
       - ssrf_proxy_network
 
@@ -412,7 +412,7 @@ services:
     restart: always
     volumes:
       # pls clearly modify the squid.conf file to fit your network environment.
-      - /app/docker/volumes/ssrf_proxy/squid.conf:/etc/squid/squid.conf
+      - /app/dify/volumes/ssrf_proxy/squid.conf:/etc/squid/squid.conf
     networks:
       - ssrf_proxy_network
       - default
@@ -424,7 +424,7 @@ services:
   #   image: langgenius/qdrant:v1.7.3
   #   restart: always
   #   volumes:
-  #     - /app/docker/volumes/qdrant:/qdrant/storage
+  #     - /app/dify/volumes/qdrant:/qdrant/storage
   #   environment:
   #     QDRANT_API_KEY: 'difyai123456'
   #   # uncomment to expose qdrant port to host
@@ -446,7 +446,7 @@ services:
   #     # postgres data directory
   #     PGDATA: /var/lib/postgresql/data/pgdata
   #   volumes:
-  #     - /app/docker/volumes/pgvector/data:/var/lib/postgresql/data
+  #     - /app/dify/volumes/pgvector/data:/var/lib/postgresql/data
   #   # uncomment to expose db(postgresql) port to host
   #   # ports:
   #   #   - "5433:5432"
@@ -463,9 +463,9 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - /app/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /app/docker/nginx/proxy.conf:/etc/nginx/proxy.conf
-      - /app/docker/nginx/conf.d:/etc/nginx/conf.d
+      - /app/dify/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /app/dify/nginx/proxy.conf:/etc/nginx/proxy.conf
+      - /app/dify/nginx/conf.d:/etc/nginx/conf.d
       #- ./nginx/ssl:/etc/ssl
     depends_on:
       - api
