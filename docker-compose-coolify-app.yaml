@@ -299,7 +299,7 @@ services:
       - redis
     volumes:
       # Mount the storage directory to the container, for storing user files.
-      - /app/docker/volumes/app/storage:/app/api/storage
+      - /app/dify/volumes/app/storage:/app/api/storage
     networks:
       - ssrf_proxy_network
       - default
